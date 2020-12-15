@@ -18,8 +18,9 @@ public class Configuration {
     private int stopDelay;
     private double velocityDifference;
     private String name;
+    private String format;
 
-    public Configuration(int issuingVelocity, int ejectionDistance, int startRamp, int stopRamp, int startDelay, int stopDelay, double velocityDifference, String name) {
+    public Configuration(int issuingVelocity, int ejectionDistance, int startRamp, int stopRamp, int startDelay, int stopDelay, double velocityDifference, String name, String format) {
         this.issuingVelocity = issuingVelocity;
         this.ejectionDistance = ejectionDistance;
         this.startRamp = startRamp;
@@ -28,6 +29,7 @@ public class Configuration {
         this.stopDelay = stopDelay;
         this.velocityDifference = velocityDifference;
         this.name = name;
+        this.format = format;
     }
     
     public String toString()
@@ -98,4 +100,13 @@ public class Configuration {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
+    
 }

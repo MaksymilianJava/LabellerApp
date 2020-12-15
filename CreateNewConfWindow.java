@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import IPZappWindow.labellerApp.*;
 
 /**
  *
@@ -24,12 +25,29 @@ import javax.swing.JOptionPane;
  */
 public class CreateNewConfWindow extends javax.swing.JFrame {
 static File configurationsListDir = new File("data" + File.separator + "configurations");
+private int edycja = 0;
+private String name10 = new String();
     /**
      * Creates new form CreateNewConfWindow
      */
-    public CreateNewConfWindow() {
+    public CreateNewConfWindow() 
+    {
         initComponents();
-        
+    }
+    public CreateNewConfWindow(String velocity, String distance, String startRamp, String stopRamp, String startDelay, String stopDelay, String velocityDifference, String format, String Name)
+    {       
+        initComponents();
+        stopDelayTextField.setText(stopDelay);
+        startDelayTextField.setText(startDelay);
+        issuingVelocityTextField.setText(velocity);
+        startRampTextField.setText(stopRamp);
+        stopRampTextField.setText(startRamp);
+        velocityDifferenceTextField.setText(velocityDifference);
+        ejectionDistanceTextField.setText(distance);
+        formatTextField.setText(format);
+        nameTextField.setText(Name);
+        name10=Name;
+        edycja = 1;
     }
 
     /**
@@ -66,6 +84,8 @@ static File configurationsListDir = new File("data" + File.separator + "configur
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         nameTextField = new javax.swing.JTextField();
+        formatTextField = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Configuration creator");
@@ -180,6 +200,14 @@ static File configurationsListDir = new File("data" + File.separator + "configur
 
         jLabel15.setText("Name");
 
+        nameTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameTextFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setText("Format");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -212,17 +240,19 @@ static File configurationsListDir = new File("data" + File.separator + "configur
                             .addComponent(ejectionDistanceTextField)
                             .addComponent(issuingVelocityTextField)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(velocityDifferenceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                        .addComponent(velocityDifferenceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                            .addComponent(formatTextField))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
@@ -276,11 +306,15 @@ static File configurationsListDir = new File("data" + File.separator + "configur
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
-                .addGap(15, 15, 15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(formatTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveButton)
                     .addComponent(cancelButton))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -552,7 +586,6 @@ static File configurationsListDir = new File("data" + File.separator + "configur
     }//GEN-LAST:event_stopDelayTextFieldKeyPressed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-               
         String stop=stopDelayTextField.getText();
         String start=startDelayTextField.getText();
         String issuing=issuingVelocityTextField.getText();
@@ -560,46 +593,124 @@ static File configurationsListDir = new File("data" + File.separator + "configur
         String stopRamp=stopRampTextField.getText();
         String velocityDifference=velocityDifferenceTextField.getText();
         String ejection=ejectionDistanceTextField.getText();
-        String name1= nameTextField.getText();
+        String format= formatTextField.getText();
+        String name1= nameTextField.getText();      
         File plik = new File(configurationsListDir, name1 + ".labconf");
-        if(plik.exists())
+        WindowEvent wev = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+        if(edycja==0)
         {
-            JOptionPane.showMessageDialog(rootPane, "Configuration with this name already exists. Please change it");         
-        } 
-        if(!(stop.isBlank() || start.isBlank() || issuing.isBlank()|| startRamp.isBlank()|| stopRamp.isBlank()|| velocityDifference.isBlank()|| ejection.isBlank() || name1.isBlank()) && !plik.exists())
-        {
-            try (PrintWriter zapis = new PrintWriter(new FileWriter(plik))) 
-            {
-                zapis.print("{ \"issuingVelocity\" : " + issuing + ",");
-                zapis.print(" \"ejectionDistance\" : " + ejection + ",");
-                zapis.print(" \"startRamp\" : " + startRamp + ",");
-                zapis.print(" \"stopRamp\" : " + stopRamp + ",");
-                zapis.print(" \"startDelay\" : " + start + ",");
-                zapis.print(" \"stopDelay\" : " + stop + ",");
-                zapis.print(" \"velocityDifference\": " + velocityDifference + ",");
-                zapis.print(" \"name\" : \"" + name1 +  "\" }");
-                zapis.close();
+            if(plik.exists())
+            { 
+                JOptionPane.showMessageDialog(rootPane, "Configuration with this name already exists. Please change it");         
             }
-            catch(IOException ex)
+            if(!(stop.isBlank() || start.isBlank() || format.isBlank() ||  issuing.isBlank()|| startRamp.isBlank()|| stopRamp.isBlank()|| velocityDifference.isBlank()|| ejection.isBlank() || name1.isBlank()) && !plik.exists())
             {
-                System.out.println(ex.getMessage());
-            }
-                WindowEvent wev = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);  
+                System.out.println("jestem");
+                try (PrintWriter zapis = new PrintWriter(new FileWriter(plik))) 
+                {
+                    zapis.print("{ \"issuingVelocity\" : " + issuing + ",");
+                    zapis.print(" \"ejectionDistance\" : " + ejection + ",");
+                    zapis.print(" \"startRamp\" : " + startRamp + ",");
+                    zapis.print(" \"stopRamp\" : " + stopRamp + ",");
+                    zapis.print(" \"startDelay\" : " + start + ",");
+                    zapis.print(" \"stopDelay\" : " + stop + ",");
+                    zapis.print(" \"velocityDifference\": " + velocityDifference + ",");
+                    zapis.print(" \"format\" : \""+ format + "\",");
+                    zapis.print(" \"name\" : \"" + name1 +  "\" }");
+                    zapis.close();
+                }
+                catch(IOException ex)
+                {
+                    System.out.println(ex.getMessage());
+                }
                 Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
                 this.setVisible(false);
                 this.dispose();
+            }
+            if(stop.isBlank() || start.isBlank() || format.isBlank() || issuing.isBlank()|| startRamp.isBlank()|| stopRamp.isBlank()|| velocityDifference.isBlank()|| ejection.isBlank())
+            {
+                JOptionPane.showMessageDialog(rootPane, "Forgot to fill one or more important process parameters");
+            }
+            if(name1.isBlank()) 
+            {
+                JOptionPane.showMessageDialog(rootPane, "You forgot to name configuration");          
+            }
+            return;
         }
-        if(stop.isBlank() || start.isBlank() || issuing.isBlank()|| startRamp.isBlank()|| stopRamp.isBlank()|| velocityDifference.isBlank()|| ejection.isBlank())
+        else
         {
-            JOptionPane.showMessageDialog(rootPane, "Forgot to fill one or more important process parameters");
+            if(plik.exists() && !name1.equals(name10))
+            { 
+                JOptionPane.showMessageDialog(rootPane, "Configuration with this name already exists. Please change it");         
+            }
+            if(name1.equals(name10))
+            {    
+            if(!(stop.isBlank() || start.isBlank() || format.isBlank() || issuing.isBlank()|| startRamp.isBlank()|| stopRamp.isBlank()|| velocityDifference.isBlank()|| ejection.isBlank() || name1.isBlank()))
+            {
+                try (PrintWriter zapis = new PrintWriter(new FileWriter(plik))) 
+                {
+                    zapis.print("{ \"issuingVelocity\" : " + issuing + ",");
+                    zapis.print(" \"ejectionDistance\" : " + ejection + ",");
+                    zapis.print(" \"startRamp\" : " + startRamp + ",");
+                    zapis.print(" \"stopRamp\" : " + stopRamp + ",");
+                    zapis.print(" \"startDelay\" : " + start + ",");
+                    zapis.print(" \"stopDelay\" : " + stop + ",");
+                    zapis.print(" \"velocityDifference\": " + velocityDifference + ",");
+                    zapis.print(" \"format\" : \""+ format + "\",");
+                    zapis.print(" \"name\" : \"" + name1 +  "\" }");
+                    zapis.close();
+                }
+                catch(IOException ex)
+                {
+                    System.out.println(ex.getMessage());
+                }                
+                Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
+                this.setVisible(false);
+                this.dispose();  
+            }
+            }
+            else
+            {
+            if(!(stop.isBlank() || start.isBlank() || format.isBlank() || issuing.isBlank()|| startRamp.isBlank()|| stopRamp.isBlank()|| velocityDifference.isBlank()|| ejection.isBlank() || name1.isBlank()) && !plik.exists())
+            {
+                try (PrintWriter zapis = new PrintWriter(new FileWriter(plik))) 
+                {
+                    zapis.print("{ \"issuingVelocity\" : " + issuing + ",");
+                    zapis.print(" \"ejectionDistance\" : " + ejection + ",");
+                    zapis.print(" \"startRamp\" : " + startRamp + ",");
+                    zapis.print(" \"stopRamp\" : " + stopRamp + ",");
+                    zapis.print(" \"startDelay\" : " + start + ",");
+                    zapis.print(" \"stopDelay\" : " + stop + ",");
+                    zapis.print(" \"velocityDifference\": " + velocityDifference + ",");
+                    zapis.print(" \"format\" : \""+ format + "\",");
+                    zapis.print(" \"name\" : \"" + name1 +  "\" }");
+                    zapis.close();
+                }
+                catch(IOException ex)
+                {
+                    System.out.println(ex.getMessage());
+                }
+                Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
+                this.setVisible(false);
+                this.dispose();
+            }
+            }
+            if(stop.isBlank() || start.isBlank() || format.isBlank() || issuing.isBlank()|| startRamp.isBlank()|| stopRamp.isBlank()|| velocityDifference.isBlank()|| ejection.isBlank())
+            {
+                JOptionPane.showMessageDialog(rootPane, "Forgot to fill one or more important process parameters");
+            }
+            if(name1.isBlank()) 
+            {
+                JOptionPane.showMessageDialog(rootPane, "You forgot to name configuration");          
+            }
+            return;
         }
-        if(name1.isBlank()) 
-        {
-            JOptionPane.showMessageDialog(rootPane, "You forgot to name configuration");          
-        }      
-        return; 
     }//GEN-LAST:event_saveButtonActionPerformed
 
+    private void nameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextFieldActionPerformed
+      // TODO add your handling code here:
+    }//GEN-LAST:event_nameTextFieldActionPerformed
+         
     /**
      * @param args the command line arguments
      */
@@ -650,6 +761,7 @@ static File configurationsListDir = new File("data" + File.separator + "configur
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JTextField ejectionDistanceTextField;
+    private javax.swing.JTextField formatTextField;
     private javax.swing.JTextField issuingVelocityTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -658,6 +770,7 @@ static File configurationsListDir = new File("data" + File.separator + "configur
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
