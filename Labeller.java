@@ -12,16 +12,14 @@ package IPZappWindow;
 class Labeller {
     private String name;
     private String IPAddress;
-    private int id;
-    public Labeller(int id, String name, String IPAddress)
+    public Labeller(String name, String IPAddress)
     {
-        this.id = id;
         this.name = name;
         this.IPAddress = IPAddress;
     }
     public String toString()
     {
-        return new String(id + ". " + name + " (" + IPAddress + ")");
+        return new String(name + " (" + IPAddress + ")");
     }
     public String getName() {
         return name;
@@ -37,14 +35,6 @@ class Labeller {
 
     public void setIPAddress(String IPAddress) {
         this.IPAddress = IPAddress;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
     
 }

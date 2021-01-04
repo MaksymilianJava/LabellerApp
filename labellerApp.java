@@ -1,25 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package IPZappWindow;
 
-import static IPZappWindow.CreateNewConfWindow.configurationsListDir;
-import static IPZappWindow.EditLabelersListWindow.labellersListFile;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +19,10 @@ import javax.swing.*;
 import org.json.*;
 import java.sql.*;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 /**
  *
- * @author lenovo
+ * @author Maksymilian Szczypkowski, Adrian Szczygielski
  */
 public class labellerApp extends javax.swing.JFrame {
     //Zmienna globalna do sprawdzenia czy okno edycji etykieciarek jest otwarte
@@ -467,7 +455,7 @@ public class labellerApp extends javax.swing.JFrame {
         if(ifEditLabellersOpened == false) 
         {
             //Stworzenie nowego okna edytora listy etykieciarek i zablokowanie możliwościa otwarcie więcej niż 1 okna
-            EditLabelersListWindow window = new EditLabelersListWindow();
+            EditLabellersListWindow window = new EditLabellersListWindow();
             ifEditLabellersOpened = true;
             window.setVisible(true);
             //Dodanie obsługi okna, przy zamknięciu odblokowanie możliwości otwarcia okna i aktualizacja listy etykieciarek
@@ -749,17 +737,17 @@ public class labellerApp extends javax.swing.JFrame {
         labellersList.clear();
         try {
             //Sprawdzenie czy istnieje plik w pamięci komputera przechowujący dane o etykieciarkach
-            if(EditLabelersListWindow.labellersListFile.exists())
+            if(EditLabellersListWindow.LABELLERS_LIST_FILE.exists())
             {
                //Utworzenie obiektu do odczytu danych z pliku
-               Scanner scanner = new Scanner(new BufferedReader(new FileReader(EditLabelersListWindow.labellersListFile)));
+               Scanner scanner = new Scanner(new BufferedReader(new FileReader(EditLabellersListWindow.LABELLERS_LIST_FILE)));
                //Gdy plik zawiera kolejną linię to wykonaj kod w pętli while
                while(scanner.hasNextLine())
                {
                    //Utworzenie obiektu deserializującego dane zapisane w formacie JSON i deserializacja odczytanej linii
                    JSONObject labellerJson = new JSONObject(scanner.nextLine());
                    //Dodanie do listy danych dotyczących zczytanej z pliku etykieciarki
-                   labellersList.add(new Labeller(labellerJson.getInt("id"), labellerJson.getString("name"), labellerJson.getString("IPAddress")));
+                   labellersList.add(new Labeller(labellerJson.getString("name"), labellerJson.getString("IPAddress")));
                    //Dodanie elementu do listy rozwijanej
                    labellersComboBox.addItem(new String(labellerJson.getString("name") + " (" + labellerJson.getString("IPAddress") + ")"));
                }
@@ -1223,12 +1211,6 @@ public class labellerApp extends javax.swing.JFrame {
     private javax.swing.JButton updateConfListButton;
     private javax.swing.JButton updateStatsButton;
     // End of variables declaration//GEN-END:variables
-
-    //Metoda wygenerowana przez kreator wywoływana gdy nie jest obsłużona funkcjonalność któregoś ze stworzonych elementów okna
-    private Reader FileReader(String supertxt) 
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
 //Klasa stworzona w celu obsługi panelu prezentującego stan połączenia z etykieciarką
 class StatusPanel extends JPanel
